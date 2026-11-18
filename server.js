@@ -15,6 +15,10 @@ app.use('/api/users', require('./server/routes/api/users'));
 app.use('/api/auth', require('./server/routes/api/auth'));
 app.use('/api/profile', require('./server/routes/api/profile'));
 app.use('/api/posts', require('./server/routes/api/posts'));
+app.use('/api/calculate-rewards', require('./server/routes/api/staking'));
+
+// Centralized error handling (must come after all routes)
+app.use(require('./server/middleware/errorHandler'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -25,6 +29,11 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+// Last-resort guards so a stray async failure is logged instead of killing the process
+process.on('unhandledRejection', (reason) =>
+  console.error('Unhandled promise rejection:', reason)
+);
 
 const PORT = process.env.PORT || 5025;
 
