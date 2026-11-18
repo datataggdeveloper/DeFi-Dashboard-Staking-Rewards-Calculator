@@ -20,6 +20,7 @@ import Text2 from "../../components/text/Text2";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { useNavigate } from "react-router-dom";
+import StakingCalculator from "../../components/staking/StakingCalculator";
 
 const Dashboard = () => {
   const [isPublished, setIsPublished] = useState(false);
@@ -358,6 +359,7 @@ const Dashboard = () => {
           </Table>
         </Box>
       </Box>
+      <StakingCalculator />
     </Box>
   );
 };
